@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Uapp-test</title>
+  <style>
+    .container,
+    img {
+      width: 600px;
+      height: 400px;
+    }
+
+    .container {
+      margin: 2rem auto;
+      position: relative;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    button {
+      display: inline-block;
+      font-size: 40px;
+      background-color: inherit;
+      border: none;
+      padding: 5px;
+      cursor: pointer;
+      text-align: center;
+      vertical-align: center;
+    }
+
+    img {
+      background-color: aquamarine;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <img src="1.jpg"/>
+  <img src="2.jpg"/>
+  <img src="3.jpg"/>
+  <img src="4.jpg"/>
+  <img src="5.jpg"/>
+  <img src="6.jpg"/>
+  <img src="7.jpg"/>
+  <img src="8.jpg"/>
+  <img src="9.jpg"/>
+</div>
+<script>
+    let currentImg = 1;
+    const arrayOfImage = document.querySelectorAll('img');
+    arrayOfImage.forEach((img, index) => img.setAttribute('alt', index + 1));
+
+    function count(number) {
+        currentImg += number;
+        if (currentImg < 1) {
+            currentImg = arrayOfImage.length;
+        }
+        if (currentImg > arrayOfImage.length) {
+            currentImg = 1;
+        }
+        changeDisplay();
+    }
+
+    function changeDisplay() {
+        arrayOfImage.forEach((img, index) => {
+            if (currentImg === index + 1) {
+                img.setAttribute('style', 'display: block;');
+            } else {
+                img.setAttribute('style', 'display: none;');
+            }
+        })
+    }
+
+    changeDisplay();
+
+    const container = document.querySelector('.container');
+    const btnLeft = document.createElement('button');
+    container.insertBefore(btnLeft, arrayOfImage[0]);
+    btnLeft.setAttribute('style', 'position: absolute; top: 40%; left: 20px');
+    btnLeft.textContent = '‹';
+    btnLeft.addEventListener('click', () => {
+        count(-1);
+    });
+
+    const btnRight = document.createElement('button');
+    container.appendChild(btnRight);
+    btnRight.setAttribute('style', 'position: absolute; top: 40%; right: 20px');
+    btnRight.textContent = '›';
+    btnRight.addEventListener('click', () => {
+        count(1);
+    });
+
+</script>
+</body>
+</html>
